@@ -6,6 +6,9 @@
 // changing according to time. You may want to investigate the millis()
 // function at https://p5js.org/reference/#/p5/millis
 
+let greenOn = 0;
+let yellowON = 0;
+let redOn = 0;
 
 function setup() {
   createCanvas(600, 600);
@@ -29,4 +32,8 @@ function drawOutlineOfLights() {
   ellipse(width/2, height/2, 50, 50); //middle
   fill("green")
   ellipse(width/2, height/2 + 65, 50, 50); //bottom
+}
+
+function redLight(){
+
 }
