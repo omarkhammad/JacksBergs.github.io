@@ -58,8 +58,4 @@ function drawOutlineOfLights() {
   rectMode(CENTER);
   fill(0);
   rect(width/2, height/2, 75, 200, 10);
-
-  //lights
-  
-
 }
