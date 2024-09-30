@@ -15,16 +15,17 @@ let gun_x = 364;
 let gun_y = 364;
 let gun_1;
 
-let dx;
-let dy;
+let bullet_1;
+let bulletX;
+let bulletY;
 
-let mouseX;
-let mouseY;
+let speed = 5;
 
 
 function preload(){
   player_sponge = loadImage("Spingle.png");
-  gun_1 = loadImage("gun.png")
+  gun_1 = loadImage("gun.png");
+  bullet_1 = loadImage("bullet.png");
 }
 
 function setup() {
@@ -37,6 +38,7 @@ function draw() {
   background(220);
   //Key pressed function is for the moving
   keyPressed();
+  shoot();
   image(player_sponge, x, y, player_sponge.width/5, player_sponge.height/5);
   image(gun_1, gun_x, gun_y, gun_1.width/15, gun_1.height/15);
 }
@@ -44,29 +46,35 @@ function draw() {
 function keyPressed(){
   // Going up
   if (keyIsDown(87)){
-    y -= 5;
-    gun_y = y - 75;
+    y -= speed;
+    gun_y = y;
     console.log("peepee");
   }
   // Going down
   if (keyIsDown(83)){
-    y += 5;
-    gun_y = y + 75;
+    y += speed;
+    gun_y = y;
   }
   // Going left
   if (keyIsDown(65)){
-    x -= 5;
-    gun_x = x - 20;
+    x -= speed;
+    gun_x = x;
   }
   /// Going right
   if (keyIsDown(68)){
-    x += 5;
-    gun_x = x + 100;
+    x += speed;
+    gun_x = x;
+  }
+  if (keyIsDown(70)){
+    shoot();
   }
 }
 
-function gunPoint(){
-  if (mouseX >= 0 && mouseX <= 90){
-    gun_1(mouseX, mouseY);
+function shoot(){
+  if (keyIsDown(70) === true){
+    image(bullet_1, bulletX, bulletY, bullet_1.width/10, bullet_1.height/10);
+    bulletX = gun_x
+    bulletY = gun_y
   }
+
 }
