@@ -18,6 +18,9 @@ let gun_1;
 let dx;
 let dy;
 
+let mouseX;
+let mouseY;
+
 
 function preload(){
   player_sponge = loadImage("Spingle.png");
@@ -48,7 +51,7 @@ function keyPressed(){
   // Going down
   if (keyIsDown(83)){
     y += 5;
-    gun_y = y + 50;
+    gun_y = y + 75;
   }
   // Going left
   if (keyIsDown(65)){
@@ -63,5 +66,7 @@ function keyPressed(){
 }
 
 function gunPoint(){
-  
+  if (mouseX >= 0 && mouseX <= 90){
+    gun_1(mouseX, mouseY);
+  }
 }
