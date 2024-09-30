@@ -71,10 +71,8 @@ function keyPressed(){
 }
 
 function shoot(){
-  if (keyIsDown(70) === true){
-    image(bullet_1, bulletX, bulletY, bullet_1.width/10, bullet_1.height/10);
-    bulletX = gun_x
-    bulletY = gun_y
-  }
+  image(bullet_1, bulletX, bulletY, bullet_1.width/10, bullet_1.height/10);
+  bulletX = gun_x + speed
+  bulletY = gun_y + speed
 
 }
