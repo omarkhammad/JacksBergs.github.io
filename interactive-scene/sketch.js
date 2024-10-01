@@ -32,6 +32,7 @@ function setup() {
   createCanvas(canvasWidth, canvasHeight);
   //centering the image
   imageMode(CENTER);
+  
 }
 
 function draw() {
