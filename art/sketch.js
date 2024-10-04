@@ -1,6 +1,6 @@
 // Generative art demo
 
-const TILE_SIZE = 80;
+const TILE_SIZE = 30;
 let tileArray = [];
 
 
