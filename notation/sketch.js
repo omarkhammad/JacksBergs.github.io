@@ -42,3 +42,7 @@ function spawnRectangle(leftSide, rectHeight, rectWidth){
   };
   return theRect;
 }
+
+function moving(moveSide, moveUp, moveDown){
+  let 
+}
