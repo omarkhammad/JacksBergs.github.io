@@ -43,6 +43,13 @@ function spawnRectangle(leftSide, rectHeight, rectWidth){
   return theRect;
 }
 
-function moving(moveSide, moveUp, moveDown){
-  let 
+function moving(moveSide, moveUp, rectWidth){
+  let moveDown = moveUp;
+  let theMovement = {
+    x: moveSide,
+    y: moveUp - rectHeight,
+    w: rectWidth,
+    h: rectHeight,
+  };
+  return theMovement;
 }
