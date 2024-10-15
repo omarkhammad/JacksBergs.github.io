@@ -4,10 +4,14 @@
 // p5 js sound area to look at
 //Making two dimensional right now until I can figure out how to input 3D models
 //maybe use norm
+// trigger on bass and treble
+//p5 sound reference
+//if key is pressed do a function in which it starts the audio
+//gain
 
 
 let terrain = [];
-const NUMBER_OF_RECTS = 100;
+const NUMBER_OF_RECTS = 1000;
 
 function setup() {
   createCanvas(windowWidth, windowHeight); 
@@ -17,11 +21,15 @@ function setup() {
 
 function draw() {
   background(220);
+  displayterrain();
+}
+
+
+function displayterrain(){
   for (let someRect of terrain) {
     rect(someRect.x, someRect.y, someRect.w, someRect.h);
   }
 }
-
 function generateTerrain(theWidth) {
   let time = 0;
   let deltaTime = 0.01;
@@ -43,13 +51,9 @@ function spawnRectangle(leftSide, rectHeight, rectWidth){
   return theRect;
 }
 
-function moving(moveSide, moveUp, rectWidth){
-  let moveDown = moveUp;
-  let theMovement = {
-    x: moveSide,
-    y: moveUp - rectHeight,
-    w: rectWidth,
-    h: rectHeight,
-  };
-  return theMovement;
+function startAudio(){
+  // you would do something like bgmusic.getLevel(){ to start do bgmusic.play
+  // calculate the terrain and how high it gets, MAKE THEM SEPERATE
+
 }
+
