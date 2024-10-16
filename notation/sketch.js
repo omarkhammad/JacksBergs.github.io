@@ -12,6 +12,15 @@
 
 let terrain = [];
 const NUMBER_OF_RECTS = 1000;
+let music;
+let clicked = false;
+
+
+function preload(){
+  music = loadSound("magic.mp3");
+}
+
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight); 
@@ -21,7 +30,9 @@ function setup() {
 
 function draw() {
   background(220);
-  displayterrain();
+  if (clicked){
+    displayterrain();
+  }
 }
 
 
@@ -30,6 +41,7 @@ function displayterrain(){
     rect(someRect.x, someRect.y, someRect.w, someRect.h);
   }
 }
+
 function generateTerrain(theWidth) {
   let time = 0;
   let deltaTime = 0.01;
@@ -54,6 +66,15 @@ function spawnRectangle(leftSide, rectHeight, rectWidth){
 function startAudio(){
   // you would do something like bgmusic.getLevel(){ to start do bgmusic.play
   // calculate the terrain and how high it gets, MAKE THEM SEPERATE
+  if (!music.isPlaying()){
+    music.play();
+  }
+}
 
+function keyPressed(){
+  if (keyCode === 32){
+    startAudio();
+    clicked = true;
+  }
 }
 
