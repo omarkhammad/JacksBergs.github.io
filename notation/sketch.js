@@ -26,15 +26,22 @@ function setup() {
   createCanvas(windowWidth, windowHeight); 
   let howWide = width/NUMBER_OF_RECTS;
   generateTerrain(howWide);
+
 }
 
 function draw() {
   background(220);
+  clicker();
+  music.onended(texty);
+
+}
+
+
+function clicker(){
   if (clicked){
     displayterrain();
   }
 }
-
 
 function displayterrain(){
   for (let someRect of terrain) {
@@ -78,3 +85,10 @@ function keyPressed(){
   }
 }
 
+function texty(){
+  clicked = false;
+  background(220);
+  textAlign(CENTER);
+  textSize(100);
+  text("ya goofed up", width/2, height/2);
+}
