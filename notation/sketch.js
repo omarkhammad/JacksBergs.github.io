@@ -9,10 +9,13 @@
 //if key is pressed do a function in which it starts the audio
 //gain
 
+const { SoundFile } = require("../../../../../.vscode/extensions/wmcicompsci.cs30-p5-1.8.2/p5types");
+
 
 let terrain = [];
 const NUMBER_OF_RECTS = 1000;
 let music;
+let amp;
 let clicked = false;
 
 
@@ -26,6 +29,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight); 
   let howWide = width/NUMBER_OF_RECTS;
   generateTerrain(howWide);
+  amp = music.Amplitude();
+  music.connect(amp);
 
 }
 
@@ -33,6 +38,7 @@ function draw() {
   background(220);
   clicker();
   music.onended(texty);
+  // https://p5js.org/reference/p5.sound/p5.Amplitude/
 
 }
 
@@ -92,3 +98,8 @@ function texty(){
   textSize(100);
   text("ya goofed up", width/2, height/2);
 }
+
+
+
+
+
