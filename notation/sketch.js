@@ -9,13 +9,13 @@
 //if key is pressed do a function in which it starts the audio
 //gain
 
-const { SoundFile } = require("../../../../../.vscode/extensions/wmcicompsci.cs30-p5-1.8.2/p5types");
-
 
 let terrain = [];
 const NUMBER_OF_RECTS = 1000;
 let music;
 let amp;
+let cnv;
+let level;
 let clicked = false;
 
 
@@ -26,10 +26,10 @@ function preload(){
 
 
 function setup() {
-  createCanvas(windowWidth, windowHeight); 
+  cnv = createCanvas(windowWidth, windowHeight); 
   let howWide = width/NUMBER_OF_RECTS;
   generateTerrain(howWide);
-  amp = music.Amplitude();
+  amp = new p5.Amplitude();
   music.connect(amp);
 
 }
@@ -37,6 +37,7 @@ function setup() {
 function draw() {
   background(220);
   clicker();
+  sounding();
   music.onended(texty);
   // https://p5js.org/reference/p5.sound/p5.Amplitude/
 
@@ -54,6 +55,22 @@ function displayterrain(){
     rect(someRect.x, someRect.y, someRect.w, someRect.h);
   }
 }
+
+function sounding(){
+  let level = amp.getLevel();
+  level = map(level, 0, 1, 0, height);
+  for (let i = 0; i < terrain.length; i++){
+    if (terrain.length % 2){
+      terrain[i].y = height - level;
+      terrain[i].h = height;
+    }
+    else{
+      terrain[i].y = height - level;
+      terrain[i].h = level;
+    }
+  }
+}
+
 
 function generateTerrain(theWidth) {
   let time = 0;
@@ -98,8 +115,3 @@ function texty(){
   textSize(100);
   text("ya goofed up", width/2, height/2);
 }
-
-
-
-
-
