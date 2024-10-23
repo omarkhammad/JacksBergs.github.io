@@ -8,6 +8,8 @@
 - [Perlin Noise Ball](perlin)
 - [Terrain Generation](terrain)
 - [Bubble Objext Demo](bubble)
+- [Grid demo](grid)
+
 
 ## Projects
 - [Interactive Scene](interactive-scene)
