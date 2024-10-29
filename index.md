@@ -9,8 +9,9 @@
 - [Terrain Generation](terrain)
 - [Bubble Objext Demo](bubble)
 - [Grid demo](grid)
-
+-[Character Grid](character)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
 - [Arrays and Notations](notation)
+- [Grid Based Project](grid-proj)
