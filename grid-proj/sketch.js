@@ -1,8 +1,19 @@
-//make a moving square game where when blocks are clicked after 6 of them the tiles start to dissapear and you can make a little thing that tries to learn your patterns???
+//make a kind of maze game, hardcode a maze
+// use windowResized(windowHeight)
+
+
+let grid; 
+const GRID_SIZE = 5;
+let cellSize;
 
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  if (windowWidth < windowHeight){
+    createCanvas(windowWidth, windowWidth);
+  }
+  else{
+    createCanvas(windowHeight, windowHeight);
+  }
 }
 
 function draw() {
