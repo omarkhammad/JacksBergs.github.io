@@ -3,10 +3,10 @@
 
 
 let grid =[[0, 0, 0, 1, 0],
-[0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0]];; 
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0]];
 const GRID_SIZE = 5;
 let cellSize;
 const OPEN_TILE = 0;
@@ -35,6 +35,24 @@ function draw() {
   displayGrid();
 }
 
+function keyPressed(){
+  if (key === "w"){
+    movePlayer(player.x, player.y - 1);
+  }
+
+  if (key === "a"){
+    movePlayer(player.x - 1, player.y);
+  }
+
+  if (key === "s"){
+    movePlayer(player.x, player.y + 1);
+  }
+
+  if (key === "d"){
+    movePlayer(player.x + 1, player.y);
+  }
+}
+
 function displayGrid(){
   for (let y = 0; y < GRID_SIZE; y++){
     for (let x = 0; x < GRID_SIZE; x++){
@@ -54,3 +72,16 @@ function displayGrid(){
   }
 }
 
+function movePlayer(x, y){
+  if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && grid[y][x] === OPEN_TILE){
+    //when moving reset to an open spot
+    grid[player.y][player.x] = OPEN_TILE;
+
+    // keep track of player location
+    player.x = x;
+    player.y = y;
+
+    // put player in the grid
+    grid[player.y][player.x] = PLAYER_TILE;
+  }
+}
