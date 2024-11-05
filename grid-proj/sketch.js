@@ -1,7 +1,8 @@
 //make a kind of maze game, hardcode a maze
 // use windowResized(windowHeight)
 
-let gridChange = true;
+let screen = true;
+let gridChangeOne = true;
 let gridOne =[[0, 0, 0, 1, 0],
           [0, 0, 0, 0, 0],
           [0, 0, 0, 0, 0],
@@ -32,7 +33,7 @@ function setup() {
 
 function draw() {
   background(220);
-  if (mouseClicked() === true){
+  if (click === true){
     displayGridOne();
   }
 }
@@ -56,11 +57,18 @@ function keyPressed(){
 }
 
 function mouseClicked(){
+  if (click === false){
+    click = true;
+  }
+}
+
+function startingScreen(){
   
 }
 
+
 function displayGridOne(){
-  if (gridChange === true){
+  if (gridChangeOne === true){
     for (let y = 0; y < GRID_SIZE; y++){
       for (let x = 0; x < GRID_SIZE; x++){
         if (gridOne[y][x] === IMPASSIBLE_TILE) {
@@ -92,8 +100,4 @@ function movePlayer(x, y){
     // put player in the grid
     gridOne[player.y][player.x] = PLAYER_TILE;
   }
-}
-
-function startingScreen(){
-
 }
