@@ -1,8 +1,8 @@
 //make a kind of maze game, hardcode a maze
 // use windowResized(windowHeight)
 
-
-let grid =[[0, 0, 0, 1, 0],
+let gridChange = true;
+let gridOne =[[0, 0, 0, 1, 0],
           [0, 0, 0, 0, 0],
           [0, 0, 0, 0, 0],
           [0, 0, 0, 0, 0],
@@ -16,6 +16,7 @@ let player = {
   x: 0,
   y: 0,
 };
+let click = false;
 
 
 function setup() {
@@ -26,13 +27,14 @@ function setup() {
     createCanvas(windowHeight, windowHeight);
   }
   cellSize = height/GRID_SIZE;
-
-  grid[player.y][player.x] = PLAYER_TILE;
+  gridOne[player.y][player.x] = PLAYER_TILE;
 }
 
 function draw() {
   background(220);
-  displayGrid();
+  if (mouseClicked() === true){
+    displayGridOne();
+  }
 }
 
 function keyPressed(){
@@ -53,35 +55,45 @@ function keyPressed(){
   }
 }
 
-function displayGrid(){
-  for (let y = 0; y < GRID_SIZE; y++){
-    for (let x = 0; x < GRID_SIZE; x++){
-      if (grid[y][x] === IMPASSIBLE_TILE) {
-        fill("black");
-        square(x * cellSize, y * cellSize, cellSize);
-      }
-      else if(grid[y][x] === OPEN_TILE){
-        fill("white");
-        square(x * cellSize, y * cellSize, cellSize);
-      }
-      else if(grid[y][x] === PLAYER_TILE){
-        fill("red");
-        square(x * cellSize, y * cellSize, cellSize);
+function mouseClicked(){
+  
+}
+
+function displayGridOne(){
+  if (gridChange === true){
+    for (let y = 0; y < GRID_SIZE; y++){
+      for (let x = 0; x < GRID_SIZE; x++){
+        if (gridOne[y][x] === IMPASSIBLE_TILE) {
+          fill("black");
+          square(x * cellSize, y * cellSize, cellSize);
+        }
+        else if(gridOne[y][x] === OPEN_TILE){
+          fill("white");
+          square(x * cellSize, y * cellSize, cellSize);
+        }
+        else if(gridOne[y][x] === PLAYER_TILE){
+          fill("red");
+          square(x * cellSize, y * cellSize, cellSize);
+        }
       }
     }
   }
 }
 
 function movePlayer(x, y){
-  if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && grid[y][x] === OPEN_TILE){
+  if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && gridOne[y][x] === OPEN_TILE){
     //when moving reset to an open spot
-    grid[player.y][player.x] = OPEN_TILE;
+    gridOne[player.y][player.x] = OPEN_TILE;
 
     // keep track of player location
     player.x = x;
     player.y = y;
 
     // put player in the grid
-    grid[player.y][player.x] = PLAYER_TILE;
+    gridOne[player.y][player.x] = PLAYER_TILE;
   }
+}
+
+function startingScreen(){
+
 }
