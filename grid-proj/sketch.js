@@ -1,23 +1,36 @@
 //make a kind of maze game, hardcode a maze
+//Make a mini game thingy
 // use windowResized(windowHeight)
 
 let screen = true;
 let gridChangeOne = true;
-let gridOne =[[0, 0, 0, 1, 0],
-          [0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0]];
-const GRID_SIZE = 5;
+let gridOne =[[0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+const GRID_SIZE = 10;
 let cellSize;
 const OPEN_TILE = 0;
 const IMPASSIBLE_TILE = 1;
 const PLAYER_TILE = 9;
+const FALLING_TILE = 2;
 let player = {
-  x: 0,
+  x: 5,
+  y: 5,
+};
+let enemy = {
+  x: 5,
   y: 0,
 };
 let click = false;
+let timer = 3000; // going to do it in millis
 
 
 function setup() {
@@ -28,7 +41,12 @@ function setup() {
     createCanvas(windowHeight, windowHeight);
   }
   cellSize = height/GRID_SIZE;
+  // Game one
   gridOne[player.y][player.x] = PLAYER_TILE;
+  gridOne[enemy.y][enemy.x] = FALLING_TILE;
+
+  //move square down every second
+  window.setInterval(autoMoveEnemy, 1000);
 }
 
 function draw() {
@@ -54,6 +72,14 @@ function keyPressed(){
   if (key === "d"){
     movePlayer(player.x + 1, player.y);
   }
+
+  if (key === "t"){
+    enemyMove(enemy.x, enemy.y + 1);
+  }
+}
+
+function autoMoveEnemy() {
+  enemyMove(enemy.x, enemy.y + 1);
 }
 
 function mouseClicked(){
@@ -66,9 +92,23 @@ function startingScreen(){
   
 }
 
+function enemyMove(x, y){
+  if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && gridOne[y][x] === OPEN_TILE){
+    gridOne[enemy.y][enemy.x] = OPEN_TILE;
+
+    // keep track of player location
+    enemy.x = x;
+    enemy.y = y;
+
+    // put player in the grid
+    gridOne[enemy.y][enemy.x] = FALLING_TILE;
+    gridOne[player.y][player.x] = PLAYER_TILE;
+  }
+}
 
 function displayGridOne(){
   if (gridChangeOne === true){
+    //Objects/Players
     for (let y = 0; y < GRID_SIZE; y++){
       for (let x = 0; x < GRID_SIZE; x++){
         if (gridOne[y][x] === IMPASSIBLE_TILE) {
@@ -81,6 +121,10 @@ function displayGridOne(){
         }
         else if(gridOne[y][x] === PLAYER_TILE){
           fill("red");
+          square(x * cellSize, y * cellSize, cellSize);
+        }
+        else if(gridOne[y][x] === FALLING_TILE){
+          fill("blue");
           square(x * cellSize, y * cellSize, cellSize);
         }
       }
