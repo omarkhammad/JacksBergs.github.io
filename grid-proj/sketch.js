@@ -31,7 +31,7 @@ let enemy = {
   y: 0,
 };
 let click = false;
-let timer = 1000; // going to do it in millis
+let timer = 500; // going to do it in millis
 
 
 function setup() {
@@ -82,14 +82,18 @@ function keyPressed(){
 
 function autoMoveEnemy() {
   enemyMove(enemy.x, enemy.y + 1);
+  if (enemy.y >= height){
+    spawnEnemy();
+  }
 }
 
 function spawnRandomEnemy(){
-
+  
 }
 
 function spawnEnemy() {
-  
+  enemy.x = round(random(0, 9));
+  window.setInterval(autoMoveEnemy, timer);
 }
 
 function mouseClicked(){
