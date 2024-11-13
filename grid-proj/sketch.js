@@ -41,8 +41,8 @@ function setup() {
   else{
     createCanvas(windowHeight, windowHeight);
   }
-  cellSize = height/GRID_SIZE;
   enemy.x = round(random(0, 9));
+  cellSize = height/GRID_SIZE;
   // Game one
   gridOne[player.y][player.x] = PLAYER_TILE;
   gridOne[enemy.y][enemy.x] = FALLING_TILE;
@@ -55,6 +55,12 @@ function draw() {
   background(220);
   if (click === true){
     displayGridOne();
+    spawnEnemy();
+  }
+  if (enemy.y >= 9){
+    gridOne[enemy.y][enemy.x] = OPEN_TILE;
+    enemy.y = 0;
+    enemy.x = round(random(0, 9));
   }
 }
 
@@ -82,13 +88,6 @@ function keyPressed(){
 
 function autoMoveEnemy() {
   enemyMove(enemy.x, enemy.y + 1);
-  if (enemy.y >= height){
-    spawnEnemy();
-  }
-}
-
-function spawnRandomEnemy(){
-  
 }
 
 function spawnEnemy() {
