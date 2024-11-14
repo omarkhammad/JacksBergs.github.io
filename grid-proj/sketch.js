@@ -45,7 +45,7 @@ function setup() {
   cellSize = height/GRID_SIZE;
   // Game one
   gridOne[player.y][player.x] = PLAYER_TILE;
-  gridOne[enemy.y][enemy.x] = FALLING_TILE;
+  gridOne[player.y][player.x] = FALLING_TILE;
 
   //move square down every second
   window.setInterval(autoMoveEnemy, timer);
@@ -55,11 +55,6 @@ function draw() {
   background(220);
   if (click === true){
     displayGridOne();
-  }
-  if (enemy.y >= 9){
-    gridOne[enemy.y][enemy.x] = OPEN_TILE;
-    enemy.y = 0;
-    enemy.x = round(random(0, 9));
   }
 }
 
@@ -79,19 +74,25 @@ function keyPressed(){
   if (key === "d"){
     movePlayer(player.x + 1, player.y);
   }
-
-  if (key === "t"){
-    enemyMove(enemy.x + 1, enemy.y);
-  }
 }
 
 function autoMoveEnemy() {
-  enemyMove(enemy.x, enemy.y + 1);
+  if (enemy.y >= 9){
+    gridOne[enemy.y][enemy.x] = OPEN_TILE;
+    enemy.y = 0;
+    enemy.x = round(random(0, 9));
+    enemyMove(enemy.x, enemy.y);
+  }
+  else if (enemy.y <= 8){
+    enemyMove(enemy.x, enemy.y + 1);
+  }
 }
 
 function spawnEnemy() {
+  gridOne[enemy.y][enemy.x] = OPEN_TILE;
+  enemy.y = 0;
   enemy.x = round(random(0, 9));
-  window.setInterval(autoMoveEnemy, timer);
+  enemyMove(enemy.x, enemy.y);
 }
 
 function mouseClicked(){
