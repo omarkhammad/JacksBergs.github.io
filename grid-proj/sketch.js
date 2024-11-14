@@ -14,7 +14,7 @@ let gridOne =[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 const GRID_SIZE = 10;
 let cellSize;
@@ -55,7 +55,6 @@ function draw() {
   background(220);
   if (click === true){
     displayGridOne();
-    spawnEnemy();
   }
   if (enemy.y >= 9){
     gridOne[enemy.y][enemy.x] = OPEN_TILE;
