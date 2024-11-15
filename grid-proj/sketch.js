@@ -41,11 +41,11 @@ function setup() {
   else{
     createCanvas(windowHeight, windowHeight);
   }
-  enemy.x = round(random(0, 9));
   cellSize = height/GRID_SIZE;
+  enemy.x = round(random(0, 9));
   // Game one
   gridOne[player.y][player.x] = PLAYER_TILE;
-  gridOne[player.y][player.x] = FALLING_TILE;
+  gridOne[enemy.y][enemy.x] = FALLING_TILE;
 
   //move square down every second
   window.setInterval(autoMoveEnemy, timer);
@@ -93,6 +93,7 @@ function spawnEnemy() {
   enemy.y = 0;
   enemy.x = round(random(0, 9));
   enemyMove(enemy.x, enemy.y);
+  enemyMove(enemy.x, enemy.y + 1);
 }
 
 function mouseClicked(){
@@ -102,7 +103,7 @@ function mouseClicked(){
 }
 
 function startingScreen(){
-  
+
 }
 
 function enemyMove(x, y){
