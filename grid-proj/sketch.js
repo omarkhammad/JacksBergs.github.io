@@ -3,7 +3,8 @@
 // use windowResized(windowHeight)
 
 let screen = true;
-let gridChangeOne = true;
+let gridChangeOne;
+let gridChangeTwo;
 let gridOne =[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -22,6 +23,7 @@ const OPEN_TILE = 0;
 const IMPASSIBLE_TILE = 1;
 const PLAYER_TILE = 2;
 const FALLING_TILE = 3;
+//const HIT_TILE = 4;
 let player = {
   x: 5,
   y: 5,
@@ -55,12 +57,22 @@ function draw() {
   background(220);
   if (click === true){
     displayGridOne();
+    gridChangeOne = true;
   }
+}
+
+function starting(){
+  let moved = 0;
+}
+
+function startingScreen(){
+
 }
 
 function keyPressed(){
   if (key === "w"){
     movePlayer(player.x, player.y - 1);
+    moved = 1;
   }
 
   if (key === "a"){
@@ -102,10 +114,6 @@ function mouseClicked(){
   }
 }
 
-function startingScreen(){
-
-}
-
 function enemyMove(x, y){
   if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && gridOne[y][x] === OPEN_TILE){
     gridOne[enemy.y][enemy.x] = OPEN_TILE;
@@ -141,6 +149,10 @@ function displayGridOne(){
           fill("blue");
           square(x * cellSize, y * cellSize, cellSize);
         }
+        //else if(grid[y][x] === HIT_TILE){
+          //fill("yellow");
+          //square(x * cellSize, y * cellSize, cellSize);
+        //}
       }
     }
   }
