@@ -10,7 +10,7 @@ let gridOne =[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -23,7 +23,7 @@ const OPEN_TILE = 0;
 const IMPASSIBLE_TILE = 1;
 const PLAYER_TILE = 2;
 const FALLING_TILE = 3;
-//const HIT_TILE = 4;
+const HIT_TILE = 4;
 let player = {
   x: 5,
   y: 5,
@@ -31,6 +31,10 @@ let player = {
 let enemy = {
   x: 0,
   y: 0,
+};
+let hit = {
+  x: 1,
+  y: 1,
 };
 let click = false;
 let timer = 500; // going to do it in millis
@@ -44,6 +48,25 @@ function setup() {
     createCanvas(windowHeight, windowHeight);
   }
   cellSize = height/GRID_SIZE;
+  let enemies = true;
+}
+
+function draw() {
+  background(220);
+  if (click === true){
+    gridOne[player.y][player.x] = PLAYER_TILE;
+    gridOne[enemy.y][enemy.x] = FALLING_TILE;
+    displayGridOne();
+    autoMoveEnemy();
+    gridChangeOne = true;
+  }
+}
+
+function starting(){
+
+}
+
+function startingScreen(){
   enemy.x = round(random(0, 9));
   // Game one
   gridOne[player.y][player.x] = PLAYER_TILE;
@@ -53,38 +76,24 @@ function setup() {
   window.setInterval(autoMoveEnemy, timer);
 }
 
-function draw() {
-  background(220);
-  if (click === true){
-    displayGridOne();
-    gridChangeOne = true;
-  }
-}
-
-function starting(){
-  let moved = 0;
-}
-
-function startingScreen(){
-
-}
-
 function keyPressed(){
-  if (key === "w"){
-    movePlayer(player.x, player.y - 1);
-    moved = 1;
-  }
-
-  if (key === "a"){
-    movePlayer(player.x - 1, player.y);
-  }
-
-  if (key === "s"){
-    movePlayer(player.x, player.y + 1);
-  }
-
-  if (key === "d"){
-    movePlayer(player.x + 1, player.y);
+  if (click === true){
+    if (key === "w"){
+      movePlayer(player.x, player.y - 1);
+      moved = 1;
+    }
+  
+    if (key === "a"){
+      movePlayer(player.x - 1, player.y);
+    }
+  
+    if (key === "s"){
+      movePlayer(player.x, player.y + 1);
+    }
+  
+    if (key === "d"){
+      movePlayer(player.x + 1, player.y);
+    }
   }
 }
 
@@ -96,17 +105,29 @@ function autoMoveEnemy() {
     enemyMove(enemy.x, enemy.y);
   }
   else if (enemy.y <= 8){
-    enemyMove(enemy.x, enemy.y + 1);
+    enemyMove(enemy.x, enemy.y + 1); 
   }
 }
 
-function spawnEnemy() {
-  gridOne[enemy.y][enemy.x] = OPEN_TILE;
-  enemy.y = 0;
-  enemy.x = round(random(0, 9));
-  enemyMove(enemy.x, enemy.y);
-  enemyMove(enemy.x, enemy.y + 1);
+function autoMoveHitbox(){
+  if (hit.y >= 9){
+    gridOne[hit.y][hit.x] = OPEN_TILE;
+    hit.y = enemy.y + 1;
+    hit.x = enemy.x
+    hitMove(hit.x, hit.y);
+  }
+  else if(hit.y <= 8){
+    hitMove(hit.x, hit.y + 1);
+  }
 }
+
+// function spawnEnemy() {
+//   gridOne[enemy.y][enemy.x] = OPEN_TILE;
+//   enemy.y = 0;
+//   enemy.x = round(random(0, 9));
+//   enemyMove(enemy.x, enemy.y);
+//   enemyMove(enemy.x, enemy.y + 1);
+// }
 
 function mouseClicked(){
   if (click === false){
@@ -149,10 +170,10 @@ function displayGridOne(){
           fill("blue");
           square(x * cellSize, y * cellSize, cellSize);
         }
-        //else if(grid[y][x] === HIT_TILE){
-          //fill("yellow");
-          //square(x * cellSize, y * cellSize, cellSize);
-        //}
+        else if(grid[y][x] === HIT_TILE){
+          fill("yellow");
+          square(x * cellSize, y * cellSize, cellSize);
+        }
       }
     }
   }
@@ -168,6 +189,19 @@ function movePlayer(x, y){
     player.y = y;
 
     // put player in the grid
+    gridOne[player.y][player.x] = PLAYER_TILE;
+  }
+}
+
+function hitMove(x, y){
+  if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && gridOne[y][x] === HIT_TILE){
+    gridOne[hit.y][hit.x] = OPEN_TILE;
+
+    hit.x = enemy.x;
+    hit.y = enemy.y + 1;
+
+    gridOne[hit.y][hit.x] = HIT_TILE;
+    gridOne[enemy.y][enemy.x] = FALLING_TILE;
     gridOne[player.y][player.x] = PLAYER_TILE;
   }
 }
