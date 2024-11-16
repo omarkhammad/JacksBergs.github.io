@@ -23,7 +23,6 @@ const OPEN_TILE = 0;
 const IMPASSIBLE_TILE = 1;
 const PLAYER_TILE = 2;
 const FALLING_TILE = 3;
-const HIT_TILE = 4;
 let player = {
   x: 5,
   y: 5,
@@ -31,10 +30,6 @@ let player = {
 let enemy = {
   x: 0,
   y: 0,
-};
-let hit = {
-  x: 1,
-  y: 1,
 };
 let click = false;
 let timer = 500; // going to do it in millis
@@ -80,7 +75,6 @@ function keyPressed(){
   if (click === true){
     if (key === "w"){
       movePlayer(player.x, player.y - 1);
-      moved = 1;
     }
   
     if (key === "a"){
@@ -109,17 +103,6 @@ function autoMoveEnemy() {
   }
 }
 
-function autoMoveHitbox(){
-  if (hit.y >= 9){
-    gridOne[hit.y][hit.x] = OPEN_TILE;
-    hit.y = enemy.y + 1;
-    hit.x = enemy.x
-    hitMove(hit.x, hit.y);
-  }
-  else if(hit.y <= 8){
-    hitMove(hit.x, hit.y + 1);
-  }
-}
 
 // function spawnEnemy() {
 //   gridOne[enemy.y][enemy.x] = OPEN_TILE;
@@ -189,19 +172,6 @@ function movePlayer(x, y){
     player.y = y;
 
     // put player in the grid
-    gridOne[player.y][player.x] = PLAYER_TILE;
-  }
-}
-
-function hitMove(x, y){
-  if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && gridOne[y][x] === HIT_TILE){
-    gridOne[hit.y][hit.x] = OPEN_TILE;
-
-    hit.x = enemy.x;
-    hit.y = enemy.y + 1;
-
-    gridOne[hit.y][hit.x] = HIT_TILE;
-    gridOne[enemy.y][enemy.x] = FALLING_TILE;
     gridOne[player.y][player.x] = PLAYER_TILE;
   }
 }
