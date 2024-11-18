@@ -32,6 +32,8 @@ let enemy = {
   y: 0,
 };
 let click = false;
+let clicktwo = true;
+let enemies = 0;
 let timer = 500; // going to do it in millis
 
 
@@ -43,22 +45,27 @@ function setup() {
     createCanvas(windowHeight, windowHeight);
   }
   cellSize = height/GRID_SIZE;
-  let enemies = true;
 }
 
 function draw() {
   background(220);
   if (click === true){
+    clicktwo = true;
     gridOne[player.y][player.x] = PLAYER_TILE;
     gridOne[enemy.y][enemy.x] = FALLING_TILE;
     displayGridOne();
-    autoMoveEnemy();
+    starting();
     gridChangeOne = true;
   }
 }
 
 function starting(){
-
+  if (enemies === 1){
+    autoMoveEnemy();
+  }
+  else if (enemies === 2){
+    endGame();
+  }
 }
 
 function startingScreen(){
@@ -88,7 +95,23 @@ function keyPressed(){
     if (key === "d"){
       movePlayer(player.x + 1, player.y);
     }
+
+    if (key === "t"){
+      enemies = 1;
+    }
+
+    if (key === "y"){
+      enemies = 2;
+    }
   }
+}
+
+function endGame(){
+
+}
+
+function pause(){
+
 }
 
 function autoMoveEnemy() {
