@@ -9,7 +9,9 @@
 - [Terrain Generation](terrain)
 - [Bubble Objext Demo](bubble)
 - [Grid demo](grid)
--[Character Grid](character)
+- [Character Grid](character)
+- [Fireworks OOP](fireworks-oop)
+- [Connected Nodes OOP](nodes)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
