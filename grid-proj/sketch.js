@@ -52,6 +52,7 @@ function draw() {
   background(220);
   if (click === true){
     clickTwo = true;
+    // spawns in player and enemy
     gridOne[player.y][player.x] = PLAYER_TILE;
     gridOne[enemy.y][enemy.x] = FALLING_TILE;
     displayGridOne();
@@ -59,6 +60,7 @@ function draw() {
     gridChangeOne = true;
   }
   else {
+    // Starting screen
     textAlign(CENTER, CENTER);
     textSize(32);
     text("Welcome to the game", width/2, height/2);
@@ -73,30 +75,21 @@ function starting(){
   }
 }
 
-function startingScreen(){
-  enemy.x = round(random(0, 9));
-  // Game one
-  gridOne[player.y][player.x] = PLAYER_TILE;
-  gridOne[enemy.y][enemy.x] = FALLING_TILE;
-
-  //move square down every second
-  window.setInterval(autoMoveEnemy, timer);
-}
-
 function keyPressed(){
   if (click === true){
+    // Move up
     if (key === "w"){
       movePlayer(player.x, player.y - 1);
     }
-  
+    // Move left
     if (key === "a"){
       movePlayer(player.x - 1, player.y);
     }
-  
+    // Move down
     if (key === "s"){
       movePlayer(player.x, player.y + 1);
     }
-  
+    // Move right
     if (key === "d"){
       movePlayer(player.x + 1, player.y);
     }
@@ -111,16 +104,12 @@ function keyPressed(){
   }
 }
 
-
-function pause(){
-
-}
-
 function autoMoveEnemy() {
   if (enemy.x === player.x && enemy.y + 1 >= player.y){
     endGame();
   }
   else {
+    // If our framcount 60 and tickRate 60 has a remainder of 0 use this code
     if (frameCount % tickRate === 0){
       if (enemy.y >= 9){
         gridOne[enemy.y][enemy.x] = OPEN_TILE;
@@ -150,9 +139,10 @@ function autoMoveEnemy() {
 }
 
 function endGame() {
-  fill("black")
+  // FInishes the game and stops the code
+  fill("black");
   text("whoops, press F5 to restart", width/2, height/2);
-  exit()
+  exit();
 }
 
 // function spawnEnemy() {
@@ -163,11 +153,13 @@ function endGame() {
 //   enemyMove(enemy.x, enemy.y + 1);
 // }
 
+// Starts the game once click = true
 function mouseClicked(){
   if (click === false){
     click = true;
   }
 }
+
 
 function enemyMove(x, y){
   if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE && gridOne[y][x] === OPEN_TILE){
