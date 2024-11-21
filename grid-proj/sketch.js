@@ -32,10 +32,11 @@ let enemy = {
   y: 0,
 };
 let click = false;
-let clicktwo = true;
-let enemies = 0;
+let clickTwo = true;
+let changing = 0;
 let timer = 500; // going to do it in millis
-
+let tickRate = 60;
+let timing;
 
 function setup() {
   if (windowWidth < windowHeight){
@@ -50,21 +51,25 @@ function setup() {
 function draw() {
   background(220);
   if (click === true){
-    clicktwo = true;
+    clickTwo = true;
     gridOne[player.y][player.x] = PLAYER_TILE;
     gridOne[enemy.y][enemy.x] = FALLING_TILE;
     displayGridOne();
-    starting();
+    autoMoveEnemy();
     gridChangeOne = true;
+  }
+  else {
+    textAlign(CENTER, CENTER);
+    textSize(32);
+    text("Welcome to the game", width/2, height/2);
   }
 }
 
 function starting(){
-  if (enemies === 1){
+  if (changing === 1){
     autoMoveEnemy();
   }
-  else if (enemies === 2){
-    endGame();
+  else if (changing === 2){
   }
 }
 
@@ -97,35 +102,58 @@ function keyPressed(){
     }
 
     if (key === "t"){
-      enemies = 1;
+      changing = 1;
     }
 
     if (key === "y"){
-      enemies = 2;
+      changing = 2;
     }
   }
 }
 
-function endGame(){
-
-}
 
 function pause(){
 
 }
 
 function autoMoveEnemy() {
-  if (enemy.y >= 9){
-    gridOne[enemy.y][enemy.x] = OPEN_TILE;
-    enemy.y = 0;
-    enemy.x = round(random(0, 9));
-    enemyMove(enemy.x, enemy.y);
+  if (enemy.x === player.x && enemy.y + 1 >= player.y){
+    endGame();
   }
-  else if (enemy.y <= 8){
-    enemyMove(enemy.x, enemy.y + 1); 
+  else {
+    if (frameCount % tickRate === 0){
+      if (enemy.y >= 9){
+        gridOne[enemy.y][enemy.x] = OPEN_TILE;
+        enemy.y = 0;
+        enemy.x = round(random(0, 9));
+        enemyMove(enemy.x, enemy.y);
+        if (tickRate - 5 >= 0) {
+          tickRate -= 20;
+        }
+      }
+      else if (enemy.y <= 8){
+        enemyMove(enemy.x, enemy.y + 1); 
+      }
+    }
+    else if (tickRate === 0){
+      if (enemy.y >= 9){
+        gridOne[enemy.y][enemy.x] = OPEN_TILE;
+        enemy.y = 0;
+        enemy.x = round(random(0, 9));
+        enemyMove(enemy.x, enemy.y);
+      }
+      else if (enemy.y <= 8){
+        enemyMove(enemy.x, enemy.y + 1);
+      }
+    }
   }
 }
 
+function endGame() {
+  fill("black")
+  text("whoops, press F5 to restart", width/2, height/2);
+  exit()
+}
 
 // function spawnEnemy() {
 //   gridOne[enemy.y][enemy.x] = OPEN_TILE;
